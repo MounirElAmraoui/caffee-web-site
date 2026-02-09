@@ -1,6 +1,6 @@
 // Configuration
 const CONFIG = {
-    password: "luxe2024",
+    password: "mounir123",
     currency: "DH",
     taxRate: 0.10,
     itemsPerPage: 6

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Artisan Café | Expérience Premium</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <i class="fas fa-mug-hot fa-bounce"></i>
+            <p>Préparation de votre expérience...</p>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-gradient"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation Complète -->
+    <nav class="glass-nav" id="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-coffee"></i>
+            <div class="brand-text">
+                <span class="brand-name">L'Artisan</span>
+                <span class="brand-tagline">Café Premium</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#home" class="active">Accueil</a>
+            <a href="#menu">Menu</a>
+            <a href="#reservation">Réservation</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="toggleCart()" id="cart-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge" id="cart-count">0</span>
+            </button>
+            <button class="icon-btn" onclick="toggleFavorites()">
+                <i class="fas fa-heart"></i>
+                <span class="badge" id="fav-count">0</span>
+            </button>
+            <button class="admin-toggle" onclick="toggleAdmin()">
+                <i class="fas fa-fingerprint"></i>
+                <span>Pro</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section Améliorée -->
+    <header id="home" class="hero-modern">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1920')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1920')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920')"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content-glass">
+            <div class="hero-badge">
+                <i class="fas fa-star"></i> Café N°1 en ville
+            </div>
+            <h1 class="gradient-text">L'Artisan Café</h1>
+            <p class="subtitle">L'excellence dans chaque tasse depuis 2015</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">50+</span>
+                    <span class="stat-label">Variétés</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">15k+</span>
+                    <span class="stat-label">Clients satisfaits</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">4.9</span>
+                    <span class="stat-label">Note moyenne</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <button class="btn-gold-large" onclick="scrollToMenu()">
+                    <i class="fas fa-utensils"></i> Voir le Menu
+                </button>
+                <button class="btn-outline" onclick="scrollToReservation()">
+                    <i class="fas fa-calendar-alt"></i> Réserver une table
+                </button>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container-modern">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>100% Bio</h3>
+                    <p>Grains issus du commerce équitable</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Service 24/7</h3>
+                    <p>Ouvert tous les jours, toute l'année</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wifi"></i>
+                    <h3>WiFi Haut Débit</h3>
+                    <p>Espace coworking disponible</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-parking"></i>
+                    <h3>Parking Gratuit</h3>
+                    <p>2h de stationnement offertes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section avec Filtres -->
+    <section id="menu" class="menu-section-full">
+        <div class="container-modern">
+            <div class="section-header">
+                <span class="section-subtitle">Notre sélection</span>
+                <h2>Carte & Menu</h2>
+                <div class="gold-line"></div>
+            </div>
+
+            <!-- Barre de recherche et filtres -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Rechercher un produit..." onkeyup="filterProducts()">
+                </div>
+                
+                <div class="category-filters" id="category-filters">
+                    <button class="filter-btn active" onclick="filterCategory('all')">Tout</button>
+                    <button class="filter-btn" onclick="filterCategory('hot')">☕ Chaud</button>
+                    <button class="filter-btn" onclick="filterCategory('cold')">🧊 Froid</button>
+                    <button class="filter-btn" onclick="filterCategory('food')">🥐 Pâtisseries</button>
+                    <button class="filter-btn" onclick="filterCategory('special')">✨ Spéciaux</button>
+                </div>
+
+                <div class="sort-box">
+                    <select id="sort-select" onchange="sortProducts()">
+                        <option value="default">Trier par</option>
+                        <option value="price-asc">Prix croissant</option>
+                        <option value="price-desc">Prix décroissant</option>
+                        <option value="name">Nom A-Z</option>
+                        <option value="popular">Popularité</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grille de produits -->
+            <div id="menu-container" class="glass-grid">
+                <!-- Produits injectés ici -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button onclick="changePage(-1)"><i class="fas fa-chevron-left"></i></button>
+                <span id="page-info">Page 1 sur 1</span>
+                <button onclick="changePage(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Réservation -->
+    <section id="reservation" class="reservation-section">
+        <div class="container-modern">
+            <div class="reservation-container">
+                <div class="reservation-info">
+                    <h2>Réservez votre table</h2>
+                    <p>Pour une expérience optimale, réservez votre table en avance. Idéal pour les groupes et les événements spéciaux.</p>
+                    
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacité : 2 à 20 personnes</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Durée moyenne : 1h30</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+212 5XX-XXXXXX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reservation-form glass-card">
+                    <h3>Formulaire de réservation</h3>
+                    <div class="form-row">
+                        <input type="text" id="res-name" placeholder="Votre nom">
+                        <input type="tel" id="res-phone" placeholder="Téléphone">
+                    </div>
+                    <div class="form-row">
+                        <input type="date" id="res-date">
+                        <select id="res-time">
+                            <option value="">Heure</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select id="res-guests">
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6+ personnes</option>
+                        </select>
+                        <select id="res-zone">
+                            <option value="inside">Intérieur</option>
+                            <option value="terrace">Terrasse</option>
+                            <option value="vip">Salon VIP</option>
+                        </select>
+                    </div>
+                    <textarea id="res-notes" placeholder="Demandes spéciales (allergies, occasion...)" rows="3"></textarea>
+                    <button class="btn-gold-large" onclick="makeReservation()">
+                        <i class="fas fa-check-circle"></i> Confirmer la réservation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact & Horaires -->
+    <section id="contact" class="contact-section">
+        <div class="container-modern">
+            <div class="contact-grid">
+                <div class="contact-info-card glass-card">
+                    <h3><i class="fas fa-clock"></i> Horaires d'ouverture</h3>
+                    <div class="schedule">
+                        <div class="day"><span>Lundi - Vendredi</span><span>07h00 - 22h00</span></div>
+                        <div class="day"><span>Samedi</span><span>08h00 - 23h00</span></div>
+                        <div class="day"><span>Dimanche</span><span>08h00 - 21h00</span></div>
+                    </div>
+                </div>
+                
+                <div class="contact-info-card glass-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Adresse</h3>
+                    <p>123 Boulevard Mohammed VI<br>75000 Paris, France</p>
+                    <button class="btn-outline-small" onclick="window.open('https://maps.google.com', '_blank')">
+                        <i class="fas fa-directions"></i> Itinéraire
+                    </button>
+                </div>
+
+                <div class="contact-info-card glass-card">
+                    <h3><i class="fas fa-envelope"></i> Contact</h3>
+                    <p>contact@artisancafe.fr<br>+212 5XX-XXXXXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-modern">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-coffee"></i>
+                    <span>L'Artisan Café</span>
+                </div>
+                <p>&copy; 2024 L'Artisan Café. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Panier Complet -->
+    <div id="cart-modal" class="overlay cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-bag"></i> Votre Panier</h3>
+                <button class="close-btn" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="cart-items" id="cart-items">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Votre panier est vide</p>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total-section">
+                    <div class="subtotal">
+                        <span>Sous-total</span>
+                        <span id="cart-subtotal">0 DH</span>
+                    </div>
+                    <div class="tax">
+                        <span>TVA (10%)</span>
+                        <span id="cart-tax">0 DH</span>
+                    </div>
+                    <div class="total-final">
+                        <span>Total</span>
+                        <span id="cart-total">0 DH</span>
+                    </div>
+                </div>
+                
+                <div class="cart-actions">
+                    <button class="btn-gold-large" onclick="checkout()">
+                        <i class="fas fa-credit-card"></i> Commander
+                    </button>
+                    <button class="btn-text" onclick="clearCart()">
+                        Vider le panier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Favoris -->
+    <div id="favorites-modal" class="overlay">
+        <div class="glass-card favorites-modal">
+            <button class="close-btn" onclick="toggleFavorites()"><i class="fas fa-times"></i></button>
+            <h3><i class="fas fa-heart" style="color: #ff4757;"></i> Vos Favoris</h3>
+            <div id="favorites-list" class="favorites-list">
+                <!-- Favoris injectés ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détail Produit Amélioré -->
+    <div id="product-modal" class="overlay">
+        <div class="glass-card product-detail-large">
+            <button class="close-btn" onclick="closeProduct()"><i class="fas fa-times"></i></button>
+            
+            <div class="product-detail-content">
+                <div class="product-image-section">
+                    <img id="modal-img" src="" alt="">
+                    <div class="badges" id="modal-badges"></div>
+                </div>
+                
+                <div class="product-info-section">
+                    <div class="product-header">
+                        <h2 id="modal-name"></h2>
+                        <button class="fav-btn" id="modal-fav-btn" onclick="toggleCurrentFavorite()">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="product-meta">
+                        <span class="category-badge" id="modal-category"></span>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span id="modal-rating">4.8</span>
+                            <span class="reviews">(128 avis)</span>
+                        </div>
+                    </div>
+
+                    <p class="product-description" id="modal-desc"></p>
+                    
+                    <div class="product-details">
+                        <div class="detail-item">
+                            <i class="fas fa-fire"></i>
+                            <span id="modal-cals">120 kcal</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="modal-time">5 min</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-leaf"></i>
+                            <span id="modal-diet">Végétarien</span>
+                        </div>
+                    </div>
+
+                    <div class="allergens" id="modal-allergens">
+                        <small><i class="fas fa-exclamation-triangle"></i> Contient: Lactose</small>
+                    </div>
+
+                    <div class="price-section">
+                        <span class="current-price" id="modal-price"></span>
+                        <span class="currency">DH</span>
+                    </div>
+
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="updateQty(-1)">−</button>
+                        <span id="modal-qty" class="qty-display">1</span>
+                        <button class="qty-btn" onclick="updateQty(1)">+</button>
+                    </div>
+
+                    <div class="total-section">
+                        <span>Total</span>
+                        <span class="total-price" id="modal-total">0 DH</span>
+                    </div>
+
+                    <button class="btn-order" onclick="addToCartFromModal()">
+                        <i class="fas fa-cart-plus"></i> Ajouter au panier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Admin Login -->
+    <div id="login-overlay" class="overlay">
+        <div class="glass-card login-card">
+            <button class="close-btn" onclick="toggleAdmin()"><i class="fas fa-times"></i></button>
+            <div class="login-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Espace Personnel</h3>
+            <p class="login-subtitle">Gestion & Administration</p>
+            <div class="input-group">
+                <input type="password" id="admin-pass" placeholder="Mot de passe" onkeypress="handleEnter(event)">
+                <button class="btn-gold" onclick="checkAuth()">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <p id="login-error" class="error-text">Accès refusé</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Complet -->
+    <div id="admin-dashboard" class="admin-fullscreen">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <i class="fas fa-coffee"></i>
+                <span>Admin</span>
+            </div>
+            
+            <nav class="admin-nav">
+                <button class="nav-item active" onclick="switchAdminTab('overview')">
+                    <i class="fas fa-chart-line"></i> Vue d'ensemble
+                </button>
+                <button class="nav-item" onclick="switchAdminTab('products')">
+                    <i class="fas fa-mug-hot"></i> Produits & Stock
+                </button>
+                <button class="nav-item" onclick="switchAdminTab('orders')">
+                    <i class="fas fa-receipt"></i> Commandes
+                </button>
+                <button class="nav-item" onclick="switchAdminTab('reservations')">
+                    <i class="fas fa-calendar-check"></i> Réservations
+                </button>
+                <button class="nav-item" onclick="switchAdminTab('analytics')">
+                    <i class="fas fa-chart-pie"></i> Analyses
+                </button>
+                <button class="nav-item" onclick="switchAdminTab('settings')">
+                    <i class="fas fa-cog"></i> Paramètres
+                </button>
+            </nav>
+
+            <button class="logout-btn" onclick="closeAdminDashboard()">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </button>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Vue d'ensemble -->
+            <div id="admin-overview" class="admin-section active">
+                <h2>Tableau de bord</h2>
+                
+                <div class="stats-row">
+                    <div class="stat-card-large">
+                        <div class="stat-icon" style="background: rgba(255,215,0,0.2); color: #FFD700;">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Chiffre d'affaires</span>
+                            <span class="stat-value" id="dash-revenue">0 DH</span>
+                            <span class="stat-change positive">+12.5% ce mois</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon" style="background: rgba(46,213,115,0.2); color: #2ed573;">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Commandes aujourd'hui</span>
+                            <span class="stat-value" id="dash-orders">0</span>
+                            <span class="stat-change positive">+5 vs hier</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon" style="background: rgba(255,71,87,0.2); color: #ff4757;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Clients actifs</span>
+                            <span class="stat-value">156</span>
+                            <span class="stat-change">Ce mois</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-large">
+                        <div class="stat-icon" style="background: rgba(112,161,255,0.2); color: #70a1ff;">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Stock faible</span>
+                            <span class="stat-value" id="dash-lowstock">0</span>
+                            <span class="stat-change negative">Alertes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <h3>Ventes récentes</h3>
+                        <div id="recent-sales-list" class="recent-list"></div>
+                    </div>
+                    
+                    <div class="dash-card">
+                        <h3>Produits populaires</h3>
+                        <div id="popular-products-list" class="popular-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gestion Produits -->
+            <div id="admin-products" class="admin-section">
+                <div class="section-toolbar">
+                    <h2>Gestion des produits</h2>
+                    <button class="btn-gold" onclick="showAddProductForm()">
+                        <i class="fas fa-plus"></i> Nouveau produit
+                    </button>
+                </div>
+
+                <div class="products-table-container">
+                    <table class="products-table" id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Commandes -->
+            <div id="admin-orders" class="admin-section">
+                <h2>Historique des commandes</h2>
+                <div class="filters-bar">
+                    <input type="date" id="order-date-filter" onchange="filterOrders()">
+                    <select id="order-status-filter" onchange="filterOrders()">
+                        <option value="all">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="completed">Terminées</option>
+                        <option value="cancelled">Annulées</option>
+                    </select>
+                    <button class="btn-outline" onclick="exportOrders()">
+                        <i class="fas fa-download"></i> Exporter CSV
+                    </button>
+                </div>
+                <div id="orders-list" class="orders-full-list"></div>
+            </div>
+
+            <!-- Réservations -->
+            <div id="admin-reservations" class="admin-section">
+                <h2>Réservations</h2>
+                <div id="reservations-list" class="reservations-full-list"></div>
+            </div>
+
+            <!-- Analytics -->
+            <div id="admin-analytics" class="admin-section">
+                <h2>Analyses détaillées</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h4>Ventes par heure</h4>
+                        <canvas id="hourlyChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h4>Catégories populaires</h4>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paramètres -->
+            <div id="admin-settings" class="admin-section">
+                <h2>Paramètres du café</h2>
+                <div class="settings-form glass-card">
+                    <div class="form-group">
+                        <label>Nom du café</label>
+                        <input type="text" id="setting-name" value="L'Artisan Café">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="setting-desc" rows="3">L'excellence dans chaque tasse depuis 2015</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Mot de passe admin</label>
+                        <input type="password" id="setting-password" placeholder="Nouveau mot de passe">
+                    </div>
+                    <button class="btn-gold" onclick="saveSettings()">Sauvegarder</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
